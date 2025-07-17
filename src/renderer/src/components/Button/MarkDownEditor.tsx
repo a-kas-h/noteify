@@ -5,7 +5,7 @@ import {
   markdownShortcutPlugin,
   quotePlugin
 } from '@mdxeditor/editor'
-import { useMarkdownEditor } from '@renderer/hooks/useMarkDownEditor'
+import { useMarkdownEditor } from '@renderer/hooks/useMarkdownEditor'
 
 export const MarkDownEditor = () => {
   const { selectedNote } = useMarkdownEditor()

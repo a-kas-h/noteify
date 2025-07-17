@@ -1,4 +1,6 @@
+import { getNotes, readNote } from '@/lib'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
+import { GetNotes, ReadNote } from '@shared/types'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
@@ -10,14 +12,14 @@ function createWindow(): void {
     height: 670,
     show: false,
     ...(process.platform === 'linux' ? { icon } : {}),
-    center:true,
-    title:'Noteify',
+    center: true,
+    title: 'Noteify',
     vibrancy: 'under-window',
     visualEffectState: 'active',
     backgroundMaterial: 'acrylic',
-    frame:false,
-    titleBarStyle:'hidden',
-    trafficLightPosition: {x: 15, y: 10},
+    frame: false,
+    titleBarStyle: 'hidden',
+    trafficLightPosition: { x: 15, y: 10 },
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,
@@ -58,7 +60,8 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.handle('getNotes', (_, ...args: Parameters<GetNotes>) => getNotes(...args))
+  ipcMain.handle('readNote', (_, ...args: Parameters<ReadNote>) => readNote(...args))
 
   createWindow()
 
