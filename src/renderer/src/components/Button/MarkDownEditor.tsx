@@ -10,7 +10,12 @@ import { useMarkdownEditor } from '@renderer/hooks/useMarkdownEditor'
 export const MarkDownEditor = () => {
   const { editorRef, selectedNote, handleAutoSaving, handleBlur } = useMarkdownEditor()
 
-  if (!selectedNote) return null
+  if (!selectedNote)
+    return (
+      <div className="flex items-center justify-center h-screen w-full">
+        <p className="flex items-center justify-center text-center">No notes open</p>
+      </div>
+    )
 
   return (
     <MDXEditor
